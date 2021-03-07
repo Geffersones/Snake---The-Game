@@ -55,7 +55,27 @@ namespace Snake
         }
         private void UpdateScreen(object sender, EventArgs e)
         {
-
+            if (!Settings.GameOver)
+            {
+                if (Input.keyPressed(Keys.Left) && Settings.direction != Direction.Right)
+                {
+                    Settings.direction = Direction.Left;
+                }
+                else if (Input.keyPressed(Keys.Right) && Settings.direction != Direction.Left)
+                {
+                    Settings.direction = Direction.Right;
+                }
+                else if (Input.keyPressed(Keys.Down) && Settings.direction != Direction.Up)
+                {
+                    Settings.direction = Direction.Down;
+                }
+                else if (Input.keyPressed(Keys.Up) && Settings.direction != Direction.Down)
+                {
+                    Settings.direction = Direction.Up;
+                }
+                MovePlayer();
+            }
+            pbCanvas.Invalidate();
         }
         private void pbCanvas_Paint(object sender, PaintEventArgs e)
         {
@@ -88,7 +108,7 @@ namespace Snake
         }
         private void MovePlayer()
         {
-
+          
         }
         private void Die()
         {
