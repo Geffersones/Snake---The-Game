@@ -94,7 +94,7 @@ namespace Snake
                 {
                     if (i == 0)
                     {
-                        snakeColor = Brushes.Red;
+                        snakeColor = Brushes.LightGreen;
                     }
                     else
                     {
