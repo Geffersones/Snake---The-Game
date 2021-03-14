@@ -40,8 +40,8 @@ namespace Snake
             Snake.Clear();
             Circle head = new Circle();
             Random random = new Random();
-            head.X = 10;
-            head.Y = 5;
+            head.X = random.Next(0, max_X_pos);
+            head.Y = random.Next(0, max_Y_pos);
             Snake.Add(head);
             label1.Text = Settings.Score.ToString();
             GenerateFood();
@@ -50,31 +50,38 @@ namespace Snake
         {
             Random random = new Random();
             food = new Circle();
-            food.X = random.Next(0, max_X_pos);
-            food.Y = random.Next(0, max_Y_pos);
+            food.X = random.Next(0, max_Y_pos); //Это так и задумано
+            food.Y = random.Next(0, max_X_pos); //Это так и задумано
         }
         private void UpdateScreen(object sender, EventArgs e)
         {
-            if (!Settings.GameOver)
+            if (Settings.GameOver)
             {
-                if (Input.keyPressed(Keys.Left) && Settings.direction != Direction.Right)
+                if (Input.keyPressed(Keys.Enter))
+                    StartGame();
+            }
+            else
+            {
+                if (Input.keyPressed(Keys.D) && Settings.direction != Direction.Right)
                 {
                     Settings.direction = Direction.Left;
                 }
-                else if (Input.keyPressed(Keys.Right) && Settings.direction != Direction.Left)
+                else if (Input.keyPressed(Keys.A) && Settings.direction != Direction.Left)
                 {
                     Settings.direction = Direction.Right;
                 }
-                else if (Input.keyPressed(Keys.Down) && Settings.direction != Direction.Up)
-                {
-                    Settings.direction = Direction.Down;
-                }
-                else if (Input.keyPressed(Keys.Up) && Settings.direction != Direction.Down)
+                else if (Input.keyPressed(Keys.W) && Settings.direction != Direction.Down)
                 {
                     Settings.direction = Direction.Up;
                 }
+                else if (Input.keyPressed(Keys.S) && Settings.direction != Direction.Up)
+                {
+                    Settings.direction = Direction.Down;
+                }
+
                 MovePlayer();
             }
+
             pbCanvas.Invalidate();
         }
         private void pbCanvas_Paint(object sender, PaintEventArgs e)
@@ -108,7 +115,47 @@ namespace Snake
         }
         private void MovePlayer()
         {
-          
+            for (int i = Snake.Count - 1; i >= 0; i--)
+            {
+                if (i == 0)
+                {
+                    switch (Settings.direction)
+                    {
+                        case Direction.Up:
+                            Snake[i].Y--;
+                            break;
+                        case Direction.Down:
+                            Snake[i].Y++;
+                            break;
+                        case Direction.Right:
+                            Snake[i].X--;
+                            break;
+                        case Direction.Left:
+                            Snake[i].X++;
+                            break;
+                    }
+                    if (Snake[i].X > max_X_pos || Snake[i].X < 0 || Snake[i].Y > max_Y_pos || Snake[i].Y < 0)
+                        Die();
+
+                    for (int j = 1; j < Snake.Count; j++)
+                    {
+                        if (Snake[0].X == Snake[j].X && Snake[0].Y == Snake[j].Y)
+                        {
+                            Die();
+                            break;
+                        }
+                    }
+                    if (Snake[0].X == food.X && Snake[0].Y == food.Y)
+                        Eat();
+
+
+                }
+                else
+                {
+                    Snake[i].X = Snake[i - 1].X;
+                    Snake[i].Y = Snake[i - 1].Y;
+                }
+            }
         }
         private void Die()
         {
@@ -122,7 +169,19 @@ namespace Snake
             Snake.Add(eaten_food);
             Settings.Score += Settings.Points;
             label1.Text = Settings.Score.ToString();
+            Settings.Speed++;
+            gameTimer.Interval = 1000 / Settings.Speed;
             GenerateFood();
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            Input.ChangeState(e.KeyCode, true);
+        }
+
+        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        {
+            Input.ChangeState(e.KeyCode, false);
         }
     }
 }
