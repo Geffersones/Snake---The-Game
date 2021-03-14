@@ -12,6 +12,7 @@ namespace Snake
         Down,
         Left,
         Right
+        
     };
     class Settings
     {

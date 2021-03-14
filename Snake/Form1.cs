@@ -183,6 +183,14 @@ namespace Snake
         {
             Input.ChangeState(e.KeyCode, false);
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Settings.GameOver = true;
+            StartGame();
+        }
+
+
     }
 }
 

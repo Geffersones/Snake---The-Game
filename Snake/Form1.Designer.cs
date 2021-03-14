@@ -39,7 +39,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(638, 56);
+            this.label1.Location = new System.Drawing.Point(645, 56);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 0;
@@ -56,10 +56,11 @@
             // 
             // pbCanvas
             // 
-            this.pbCanvas.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.pbCanvas.Location = new System.Drawing.Point(12, 12);
+            this.pbCanvas.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.pbCanvas.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbCanvas.Location = new System.Drawing.Point(6, 8);
             this.pbCanvas.Name = "pbCanvas";
-            this.pbCanvas.Size = new System.Drawing.Size(593, 496);
+            this.pbCanvas.Size = new System.Drawing.Size(591, 511);
             this.pbCanvas.TabIndex = 2;
             this.pbCanvas.TabStop = false;
             this.pbCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.pbCanvas_Paint);
@@ -68,7 +69,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(717, 512);
+            this.BackColor = System.Drawing.SystemColors.GrayText;
+            this.ClientSize = new System.Drawing.Size(716, 521);
             this.Controls.Add(this.pbCanvas);
             this.Controls.Add(this.lblGameOverfc);
             this.Controls.Add(this.label1);
